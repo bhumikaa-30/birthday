@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎈 Birthday Scrapbook 🎁</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #4facfe 50%, #00f2fe 75%, #43e97b 100%);
+            color: #333;
+            line-height: 1.7;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        /* PASSWORD SCREEN */
+        #passwordScreen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        #passwordScreen h1 {
+            font-size: 4em;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        #passwordInput {
+            padding: 20px;
+            font-size: 1.5em;
+            border-radius: 15px;
+            border: none;
+            width: 300px;
+            max-width: 90vw;
+            margin: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        #unlockBtn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        #unlockBtn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+        }
+        /* HIDDEN CONTENT */
+        #mainContent {
+            display: none;
+        }
+        .page {
+            min-height: 100vh;
+            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: -1;
+            border-radius: 25px;
+            margin: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        }
+        .page h1 {
+            font-size: 4em;
+            color: darkblue;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .page h2 {
+            font-size: 2.8em;
+            color: #f5576c;
+            margin: 40px 0 30px;
+        }
+        .photo-frame {
+            width: 320px;
+            height: 420px;
+            border-radius: 25px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            border: 10px solid white;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            /* display: flex; */
+            /* align-items: center; */
+            /* justify-content: center; */
+            font-size: 4em;
+        }
+        .photo-frame, .love-letter{
+            display: inline-block;
+        }
+        .love-letter {
+            background: white;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            font-size: 1.4em;
+            line-height: 1.9;
+            font-style: italic;
+            border-left: 8px solid #f5576c;
+            text-align: left;
+        }
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 50px 0;
+        }
+        .memory-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s;
+        }
+        .memory-card:hover {
+            transform: translateY(-10px);
+        }
+        .memory-card h3 {
+            color: purple;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        /* SURPRISE BUTTON */
+        .surprise-box {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 60px;
+            border-radius: 30px;
+            margin: 50px 0;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 35px 70px rgba(255, 107, 107, 0.4);
+            max-width: 700px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+        }
+        .surprise-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 45px 90px rgba(255, 107, 107, 0.5);
+        }
+        .surprise-box.revealed {
+            background: linear-gradient(45deg, #FFD700, #FF8C00);
+            cursor: default;
+            transform: none;
+        }
+        .surprise-content {
+            display: none;
+            margin-top: 30px;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .surprise-content.revealed {
+            display: block;
+            animation: surprisePop 0.8s ease-out;
+        }
+        @keyframes surprisePop {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            animation: bounce 2s infinite;
+            z-index: 100;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+        @media (max-width: 768px) {
+            .page { padding: 60px 20px; }
+            .page h1 { font-size: 2.8em; }
+            .page h2 { font-size: 2.2em; }
+            .photo-frame { width: 250px; height: 250px; font-size: 3em; }
+            .memory-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- PASSWORD SCREEN -->
+    <div id="passwordScreen">
+        <h1>🎁Hi Bhagyav,<br> Birthday Surprise 🎁</h1>
+        <p style="font-size: 1.5em; color: white; margin-bottom: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            Enter password to unlock 10 chapters of love...
+        </p>
+        <input type="password" id="passwordInput" placeholder="The special date..." maxlength="20">
+        <br>
+        <button id="unlockBtn">✨ UNLOCK MEMORIES ✨</button>
+        <!-- <p style="margin-top: 30px; color: rgba(255,255,255,0.8); font-size: 1.1em;">
+            Hint: Think of our special moment 💕
+        </p> -->
+    </div>
+
+    <!-- MAIN CONTENT (HIDDEN) -->
+    <div id="mainContent">
+        <!-- PAGE 1: COVER -->
+        <section class="page" id="page1">
+            <h1>🎁 Bhagyav's <br>
+                Birthday Scrapbook 🎁</h1>
+            <p style="font-size: 1.6em; color: #666; max-width: 700px; margin: 0 auto; line-height: 1.5;">
+                Our Beautiful Memories<br>
+                <strong>6 Chapters of Our Love Story</strong>
+            </p>
+            <div class="scroll-indicator">⬇️ Scroll Through Our Journey</div>
+        </section>
+
+        <!-- PAGE 2: FIRST MEETING -->
+        <section class="page" id="page2">
+            <h2>📖 Chapter 1</h2>
+            <h1>The Day We Met</h1>
+            <div style="display: flex; gap: 40px; max-width: 1200px; margin: 40px auto; align-items: center; flex-wrap: wrap; justify-content: center;">
+                <div class="photo-frame"><img src="media/photo1.jpeg" height="400px" width="300px" style="border-radius: 10%;"></div>
+            <div class="love-letter">
+                That moment our eyes met... i was like OH MY GOD!.
+                He is my boyfriend. <br>
+                You remember we were both so shy. <br>
+                It was perfectly imperfect.
+            </div>
+            </div>
+            
+        </section>
+
+        <!-- PAGE 3: FIRST DATE -->
+        <section class="page" id="page3">
+            <h2>🌙 Chapter 2</h2>
+            <h1>First Date Magic</h1>
+            <div style="display: flex; gap: 40px; max-width: 1200px; margin: 40px auto; align-items: center; flex-wrap: wrap; justify-content: center;">
+                <div class="photo-frame"><img src="media/photo2.jpeg" height="400px" width="300px" style="border-radius: 10%;"></div>
+                <div class="love-letter">
+                    Meeting after almost two years.<br>
+                    It was so wholesome. <br>
+                    The disgusting pizza, with overloaded cheese. <br>
+                    Us nearly getting caught.<br>
+                    The feel of your lips on mine. MAGICAL! ✨
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4: FIRST I LOVE YOU -->
+        <section class="page" id="page4">
+            <h2>⭐ Chapter 3</h2>
+            <h1>My B</h1>
+            <div style="display: flex; gap: 40px; max-width: 1200px; margin: 40px auto; align-items: center; flex-wrap: wrap; justify-content: center;">
+                <div class="photo-frame"><img src="media/photo3.jpeg" height="370px" width="300px" style="border-radius: 10%;"></div>
+                <div class="love-letter">
+                    Look at you my handsome, handsome man. <br>
+                    I LOVE YOU.<br>
+                    You are my B.🥹
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 5: LOVE LETTER -->
+        <section class="page" id="page5">
+            <h2>💌 Chapter 4</h2>
+            <h1>Deepest Love Letter</h1>
+            <div class="love-letter" style="max-width: 800px; font-size: 1.5em;">
+                <strong>Dear Bhagyav,</strong><br><br>
+                HAPPY BIRTHDAY BABY!<br>
+                You are so amazing, like i see you working so hard, and putting everyone else's needs above yours. It makes me want to hug you and tell you that I am so fucking proud of you! I want to say to you "Baby, Just take a deep breath, and relieve some of your stress".<br>
+                I LOVE YOU, MY B!<br>
+                I never wanted you to feel unloved, but i know my words make you feel like that sometimes, for that i am truly sorry.
+                But just remember that no matter what, I love you with my whole heart.<br>
+                You are my first love, my first kiss, my first hug.<br>
+                You are incredible.<br>
+                You are amazing, so pure at heart.<br>
+                You are my love! 💕<br><br>
+                <strong>All my love,<br>Bhumika</strong>
+            </div>
+        </section>
+
+        <!-- PAGE 6: FAVORITE MEMORIES -->
+        <section class="page" id="page6">
+            <h2>💭 Chapter 5</h2>
+            <h1>Favorite Memories</h1>
+            <div class="memory-grid">
+                <div class="memory-card">
+                    <h3>🌹 You giving me rose</h3>
+                    <p>My favourite memory. I felt so special, so loved at that point. Thankyou!</p>
+                </div>
+                <div class="memory-card">
+                    <h3>🥹 Your laugh</h3>
+                    <p>I just love your laugh. It makes me want to say silly things, just to see you laugh.</p>
+                </div>
+                <div class="memory-card">
+                    <h3>🚗 Car Rides</h3>
+                    <p>I want to go on a long drive with you.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 7: THINGS I LOVE -->
+        <section class="page" id="page7">
+            <h2>💖 Chapter 6</h2>
+            <h1>6 Things I Love About You</h1>
+            <div class="memory-grid">
+                <div class="memory-card">
+                    <h3>Your Smile</h3>
+                    <!-- <p>Brightest light in my world</p> -->
+                </div>
+                <div class="memory-card">
+                    <h3>Your Laugh</h3>
+                    <!-- <p>Makes my heart sing</p> -->
+                </div>
+                <div class="memory-card">
+                    <h3>Your Hugs</h3>
+                    <!-- <p>Home in human form</p> -->
+                </div>
+                <div class="memory-card">
+                    <h3>Your Kindness</h3>
+                    <!-- <p>Changes everyone around you</p> -->
+                </div>
+                <div class="memory-card">
+                    <h3>Your Passion</h3>
+                    <!-- <p>Inspires me every day</p> -->
+                </div>
+                <div class="memory-card">
+                    <h3>Simply YOU</h3>
+                    <!-- <p>Perfect exactly as you are</p> -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 8: FUTURE DREAMS
+        <section class="page" id="page8">
+            <h2>💍 Chapter 7</h2>
+            <h1>Dreams We'll Build</h1>
+            <div class="photo-frame">🏡</div>
+            <div class="love-letter">
+                Our cozy house with big windows, 
+                trips to [dream destination], 
+                lazy mornings wrapped in each other, 
+                growing old hand in hand. 
+                All our dreams start today. ✨
+            </div>
+        </section> -->
+
+        <!-- PAGE 9: PROMISES -->
+        <!-- <section class="page" id="page9">
+            <h2>🤝 Chapter 8</h2>
+            <h1>My Promises To You</h1>
+            <div class="memory-grid">
+                <div class="memory-card">
+                    <h3>❤️ Forever Love</h3>
+                    <p>Choose you every single day</p>
+                </div>
+                <div class="memory-card">
+                    <h3>🤲 Support</h3>
+                    <p>Your biggest cheerleader always</p>
+                </div>
+                <div class="memory-card">
+                    <h3>🌟 Adventure</h3>
+                    <p>Lifetime of memories together</p>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- PAGE 10: BIRTHDAY SURPRISE -->
+        <section class="page" id="page10">
+            <h2>🎂 GRAND FINALE</h2>
+            <h1>Birthday Surprise!</h1>
+            <div class="surprise-box" id="surpriseBtn" onclick="revealSurprise()">
+                🎁 CLICK FOR YOUR ULTIMATE BIRTHDAY SURPRISE! 🎁
+            </div>
+            <div class="surprise-content" id="surpriseContent">
+                <h2 style="color: #FF6B6B; font-size: 3em; margin-bottom: 30px;">🎉 GRAND REVEAL! 🎉</h2>
+                <div style="font-size: 1.6em; line-height: 2;">
+                    <div style="background: white; padding: 50px; border-radius: 25px; margin: 20px 0; box-shadow: 0 25px 50px rgba(0,0,0,0.15);">
+                        <!-- <h3 style="color: #4facfe; font-size: 2.2em; margin-bottom: 30px;">✨ Your 10 Epic Birthday Gifts:</h3> -->
+                        <div>
+                            <img src="media/s1.鴰" height="150px" width="150px">
+                            <img src="media/s2.der갇謋䰀谀촣徊㻥峧帴삺牢좾"height="150px" width="150px">
+                            <img src="media/s3.48 AM.鴰"height="150px" width="150px">
+                            <img src="media/s4.55 AM" height="150px" width="150px">
+                            <h2 style="color: darkolivegreen;">Happy 26th birthday, my love!</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 🔐 PASSWORD 
+        const PASSWORD = "220123"; // Set your special word here
+        
+        // UNLOCK FUNCTIONALITY
+        document.getElementById('unlockBtn').onclick = function() {
+            const input = document.getElementById('passwordInput').value.toLowerCase().trim();
+            const passwordScreen = document.getElementById('passwordScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            if (input === PASSWORD) {
+                // Smooth transition: Fade out password screen, fade in content
+                passwordScreen.style.transition = "opacity 0.8s ease";
+                passwordScreen.style.opacity = "0";
+                
+                setTimeout(() => {
+                    passwordScreen.style.display = "none";
+                    mainContent.style.display = "block";
+                    // Reset scroll to top of the scrapbook
+                    window.scrollTo(0, 0);
+                }, 800);
+            } else {
+                // Simple shake effect or alert for wrong password
+                alert("That's not it! Try again, or think of our special word. ❤️");
+                document.getElementById('passwordInput').value = "";
+            }
+        };
+
+        // SURPRISE REVEAL FUNCTIONALITY
+        function revealSurprise() {
+            const btn = document.getElementById('surpriseBtn');
+            const content = document.getElementById('surpriseContent');
+
+            // Prevent multiple clicks
+            if (!btn.classList.contains('revealed')) {
+                btn.innerHTML = "✨ SURPRISE UNLOCKED! ✨";
+                btn.classList.add('revealed');
+                content.classList.add('revealed');
+                
+                // Optional: Scroll to the surprise content smoothly
+                setTimeout(() => {
+                    content.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+
+        // Allow "Enter" key to trigger the unlock
+        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('unlockBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>
+        
