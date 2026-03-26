@@ -474,4 +474,60 @@
     </script>
 </body>
 </html>
+
+    <!-- <script>
+        // 🔐 PASSWORD 
+        const PASSWORD = "220123"; // Set your special word here
         
+        // UNLOCK FUNCTIONALITY
+        document.getElementById('unlockBtn').onclick = function() {
+            const input = document.getElementById('passwordInput').value.toLowerCase().trim();
+            const passwordScreen = document.getElementById('passwordScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            if (input === PASSWORD) {
+                // Smooth transition: Fade out password screen, fade in content
+                passwordScreen.style.transition = "opacity 0.8s ease";
+                passwordScreen.style.opacity = "0";
+                
+                setTimeout(() => {
+                    passwordScreen.style.display = "none";
+                    mainContent.style.display = "block";
+                    // Reset scroll to top of the scrapbook
+                    window.scrollTo(0, 0);
+                }, 800);
+            } else {
+                // Simple shake effect or alert for wrong password
+                alert("That's not it! Try again, or think of our special word. ❤️");
+                document.getElementById('passwordInput').value = "";
+            }
+        };
+
+        // SURPRISE REVEAL FUNCTIONALITY
+        function revealSurprise() {
+            const btn = document.getElementById('surpriseBtn');
+            const content = document.getElementById('surpriseContent');
+
+            // Prevent multiple clicks
+            if (!btn.classList.contains('revealed')) {
+                btn.innerHTML = "✨ SURPRISE UNLOCKED! ✨";
+                btn.classList.add('revealed');
+                content.classList.add('revealed');
+                
+                // Optional: Scroll to the surprise content smoothly
+                setTimeout(() => {
+                    content.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+
+        // Allow "Enter" key to trigger the unlock
+        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('unlockBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>
+         -->
