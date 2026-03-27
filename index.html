@@ -26,11 +26,11 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e6aed5 0%, #c0e497 100%);
         }
         #passwordScreen h1 {
             font-size: 4em;
-            color: white;
+            color: black;
             margin-bottom: 30px;
             text-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
@@ -47,7 +47,8 @@
         }
         #unlockBtn {
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            color: white;
+            color: black;
+            opacity: 0.7;
             border: none;
             padding: 20px 40px;
             font-size: 1.3em;
@@ -65,8 +66,9 @@
             display: none;
         }
         .page {
-            /* height: 100vh; */
+            min-height: 100vh;
             width: 100%;
+            background: linear-gradient(100deg, #e6aed5 0%, #c0e497 100%);
             /* padding: 40px 40px; */
             display: none;
             flex-direction: column;
@@ -110,8 +112,9 @@
             height: 420px;
             border-radius: 25px;
             margin: 40px auto;
-            background: linear-gradient(135deg, #fff, #f8f9fa);
-            border: 10px solid white;
+            padding: 10px;
+            /* background: linear-gradient(135deg, #fff, #f8f9fa); */
+            /* border: 10px solid white; */
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             /* display: flex; */
             /* align-items: center; */
@@ -120,12 +123,13 @@
         }
         .photo-frame, .love-letter{
             display: inline-block;
+            margin: 20px;
         }
         .love-letter {
             background: white;
             max-width: 700px;
             margin: 40px auto;
-            padding: 50px;
+            padding: 20px;
             border-radius: 25px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             font-size: 1.4em;
@@ -201,15 +205,15 @@
             box-shadow: 0 45px 90px rgba(255, 107, 107, 0.5);
         }
         .surprise-box.revealed {
-            background: linear-gradient(45deg, #FFD700, #FF8C00);
+            background: linear-gradient(45deg, #e0d8a7, #7ba9cf);
             cursor: default;
             transform: none;
         }
         .surprise-content {
             display: none;
-            margin-top: 30px;
-            padding: 40px;
-            background: white;
+            margin-top: 10px;
+            padding: 20px;
+            background: plum;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
@@ -249,7 +253,7 @@
     <!-- PASSWORD SCREEN -->
     <div id="passwordScreen">
         <h1>🎁Hi Bhagyav,<br> Birthday Surprise 🎁</h1>
-        <p style="font-size: 1.5em; color: white; margin-bottom: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+        <p style="font-size: 1.5em; color: black; opacity: 0.5; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
             Enter password to unlock our chapters of love...
         </p>
         <input type="password" id="passwordInput" placeholder="The special date..." maxlength="20">
@@ -263,7 +267,7 @@
     <!-- MAIN CONTENT (HIDDEN) -->
     <div id="mainContent">
         <!-- PAGE 1: COVER -->
-        <section class="page" id="page1" style="padding: 30px; margin-top: 70px; border-radius: 5%;">
+        <section class="page" id="page1">
             <h1>🎁 Bhagyav's <br>
                 Birthday Scrapbook 🎁</h1>
             <p style="font-size: 1.6em; color: #666; max-width: 700px; margin: 0 auto; line-height: 1.5;">
